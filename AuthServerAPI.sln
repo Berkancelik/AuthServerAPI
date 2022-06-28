@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniApp2.API", "MiniApp2.AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniApp3.API", "MiniApp3.API\MiniApp3.API.csproj", "{C11AC435-E431-4CFA-8578-D9E926B14785}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{8275E7D5-3456-45BF-B85A-5E6711D69198}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C11AC435-E431-4CFA-8578-D9E926B14785}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11AC435-E431-4CFA-8578-D9E926B14785}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C11AC435-E431-4CFA-8578-D9E926B14785}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8275E7D5-3456-45BF-B85A-5E6711D69198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8275E7D5-3456-45BF-B85A-5E6711D69198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8275E7D5-3456-45BF-B85A-5E6711D69198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8275E7D5-3456-45BF-B85A-5E6711D69198}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

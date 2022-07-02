@@ -13,7 +13,7 @@ namespace AuthServer.Core.Reposityories
         Task<TEntity> GetBtIdAsync(int id);
         Task<IQueryable<TEntity>> GetAllAsync();
         IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> predicate);   
-        Task AddAsunc(TEntity entity);
+        Task AddAsync(TEntity entity);
         TEntity Update(TEntity entity);
         void Remove(TEntity entity);
 

@@ -11,7 +11,7 @@ namespace AuthServer.Core.Reposityories
     {
 
         Task<TEntity> GetBtIdAsync(int id);
-        Task<IQueryable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync();
         IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> predicate);   
         Task AddAsync(TEntity entity);
         TEntity Update(TEntity entity);

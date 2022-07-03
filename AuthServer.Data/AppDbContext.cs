@@ -23,6 +23,9 @@ namespace AuthServer.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //Diğer Assambly'lerin içerisindeki interfaceleri arayıp tek seferde tüm ayarları yükleyecektir.
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+
             base.OnModelCreating(builder);
         }
     }

@@ -7,7 +7,9 @@ using Microsoft.Extensions.Options;
 using SharedLibrary.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +29,7 @@ namespace AuthServer.Service.Services
 
         private string CreateRefreshToken()
         {
+            
             var numberByte = new Byte[32];
 
             using var rnd = RandomNumberGenerator.Create();
@@ -34,7 +37,22 @@ namespace AuthServer.Service.Services
 
             return Convert.ToBase64String(numberByte);
         }
+        private IEnumerable<Claim> GetClaim(UserApp userApp, List<String> audiences)
+        {
+            var userList = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, userApp.Id),
+                    new Claim(JwtRegisteredClaimNames.Email, userApp.Email),
+                    new Claim(ClaimTypes.Name, userApp.UserName),
+                    // jti jason'u kimliklendirir yani bir identity verir
+                    new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+                };
+            // aşağaıdaki isimlendirme ile birlikte karşılaştırılma yapılmatkadır. Rasgele isimlendirme yapılmamaktadır.
+            userList.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
 
+            return userList;
+
+        }
         public ClientTokenDto CreateClientToken(Client userApp)
         {
             throw new NotImplementedException();

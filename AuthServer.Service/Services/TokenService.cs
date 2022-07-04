@@ -64,7 +64,6 @@ namespace AuthServer.Service.Services
 
             return claims;
 
-
         }
        
 

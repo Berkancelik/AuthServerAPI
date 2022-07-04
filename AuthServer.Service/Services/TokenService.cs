@@ -4,6 +4,7 @@ using AuthServer.Core.Models;
 using AuthServer.Core.Repositories.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SharedLibrary.Configuration;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace AuthServer.Service.Services
 
         private string CreateRefreshToken()
         {
-            
+
             var numberByte = new Byte[32];
 
             using var rnd = RandomNumberGenerator.Create();
@@ -37,7 +38,7 @@ namespace AuthServer.Service.Services
 
             return Convert.ToBase64String(numberByte);
         }
-        private IEnumerable<Claim> GetClaim(UserApp userApp, List<String> audiences)
+        private IEnumerable<Claim> GetClaims(UserApp userApp, List<String> audiences)
         {
             var userList = new List<Claim>
                 {
@@ -65,14 +66,40 @@ namespace AuthServer.Service.Services
 
 
         }
-        public ClientTokenDto CreateClientToken(Client userApp)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public TokenDto CreateToken(UserApp userApp)
         {
-            throw new NotImplementedException();
+            var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.AccessTokenExpiration);
+            var refreshTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.RefreshTokenExpiration);
+            var securityKey = SignService.GeSymetricSecurityKey(_tokenOption.SecurityKey);
+
+            SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+
+            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
+                issuer: _tokenOption.Issuer,
+                expires: accessTokenExpiration,
+                // vermiş olduğumuz dakikadan itibaren öncesi geçersiz olmasın
+                notBefore: DateTime.Now,
+                claims: GetClaims(userApp, _tokenOption.Audience),
+                signingCredentials: signingCredentials);
+
+            var handler = new JwtSecurityTokenHandler();
+
+            var token = handler.WriteToken(jwtSecurityToken);
+            var tokenDto = new TokenDto
+            {
+                AccessToken = token,
+                RefreshToken = CreateRefreshToken(),
+                AccessTokenExpiration = accessTokenExpiration,
+                RefreshTokenExpiration = refreshTokenExpiration
+            };
+
+            return tokenDto;
+        }
+        public ClientTokenDto CreateClientToken(Client client)
+        {
+            throw new Exception();
         }
     }
 }

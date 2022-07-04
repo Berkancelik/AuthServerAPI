@@ -9,7 +9,6 @@ namespace AuthServer.Service
 {
     public static class SignService
     {
-        //şifreleme yöntemi olarak da blinmektedir bu asimetrik imzalama 
         public static SecurityKey GeSymetricSecurityKey(string securityKey)
         {
             return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));

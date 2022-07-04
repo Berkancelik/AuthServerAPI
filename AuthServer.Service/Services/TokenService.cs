@@ -53,6 +53,18 @@ namespace AuthServer.Service.Services
             return userList;
 
         }
+
+        private IEnumerable<Claim> GetClaimsByClient(Client client)
+        {
+            var claims = new List<Claim>();
+            claims.AddRange(client.Auidences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString());
+            new Claim(JwtRegisteredClaimNames.Sub, client.ClientId.ToString());
+
+            return claims;
+
+
+        }
         public ClientTokenDto CreateClientToken(Client userApp)
         {
             throw new NotImplementedException();

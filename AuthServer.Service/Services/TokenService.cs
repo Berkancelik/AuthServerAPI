@@ -96,7 +96,7 @@ namespace AuthServer.Service.Services
 
             return tokenDto;
         }
-        public ClientTokenDto CreateClientToken(Client client)
+        public ClientTokenDto CreateTokenByClient(Client client)
         {
             var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.AccessTokenExpiration);
             var securityKey = SignService.GeSymetricSecurityKey(_tokenOption.SecurityKey);

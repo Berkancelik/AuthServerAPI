@@ -21,7 +21,7 @@ namespace AuthServer.Service.Services
     {
         private readonly List<Client> _clients;
         private readonly ITokenService _tokenService
-        private readonly UserManager<UserApp> _userManager; 
+        private readonly UserManager<UserApp> _userManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericRepository<UserRefreshToken> _userRefreshToken;
 

@@ -50,7 +50,7 @@ namespace AuthServer.Service.Services
 
             if (product == null)
             {
-                return Response<TDto>.Fail("ID not found",404,true);
+                return Response<TDto>.Fail("ID not found", 404, true);
             }
             return Response<TDto>.Success(ObjectMapper.Mapper.Map<TDto>(product), 200);
 
@@ -60,9 +60,9 @@ namespace AuthServer.Service.Services
         {
             var isExistEntity = await _genericRepository.GetByIdAsync(id);
 
-            if (isExistEntity ==null)
+            if (isExistEntity == null)
             {
-                return Response<NoDataDto>.Fail("Id not found",404,true);
+                return Response<NoDataDto>.Fail("Id not found", 404, true);
             }
 
             _genericRepository.Remove(isExistEntity);
@@ -92,7 +92,7 @@ namespace AuthServer.Service.Services
             var list = _genericRepository.Where(predicate);
 
             return Response<IEnumerable<TDto>>.Success(ObjectMapper.Mapper.Map<IEnumerable<TDto>>(await list.ToListAsync()), 200);
-     
+
         }
     }
 

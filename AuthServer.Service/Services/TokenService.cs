@@ -65,7 +65,7 @@ namespace AuthServer.Service.Services
             return claims;
 
         }
-       
+
 
         public TokenDto CreateToken(UserApp userApp)
         {

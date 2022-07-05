@@ -79,12 +79,10 @@ namespace AuthServer.Service.Services
             {
                 return Response<NoDataDto>.Fail("Id not found", 404, true);
             }
-
             var updateEntity = ObjectMapper.Mapper.Map<TEntity>(entity);
             _genericRepository.Update(updateEntity);
             await _unitOfWork.CommitAsync();
             return Response<NoDataDto>.Success(204);
-
         }
 
         public async Task<Response<IEnumerable<TDto>>> Where(Expression<Func<TEntity, bool>> predicate)

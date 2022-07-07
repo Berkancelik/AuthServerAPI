@@ -48,7 +48,6 @@ namespace AuthServer.Service.Services
                     // jti jason'u kimliklendirir yani bir identity verir
                     new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
                 };
-            // aşağaıdaki isimlendirme ile birlikte karşılaştırılma yapılmatkadır. Rasgele isimlendirme yapılmamaktadır.
             userList.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
 
             return userList;
@@ -71,14 +70,13 @@ namespace AuthServer.Service.Services
         {
             var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.AccessTokenExpiration);
             var refreshTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.RefreshTokenExpiration);
-            var securityKey = SignService.GeSymetricSecurityKey(_tokenOption.SecurityKey);
+            var securityKey = SignInService.GeSymetricSecurityKey(_tokenOption.SecurityKey);
 
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
                 issuer: _tokenOption.Issuer,
                 expires: accessTokenExpiration,
-                // vermiş olduğumuz dakikadan itibaren öncesi geçersiz olmasın
                 notBefore: DateTime.Now,
                 claims: GetClaims(userApp, _tokenOption.Audience),
                 signingCredentials: signingCredentials);
@@ -99,14 +97,13 @@ namespace AuthServer.Service.Services
         public ClientTokenDto CreateTokenByClient(Client client)
         {
             var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.AccessTokenExpiration);
-            var securityKey = SignService.GeSymetricSecurityKey(_tokenOption.SecurityKey);
+            var securityKey = SignInService.GeSymetricSecurityKey(_tokenOption.SecurityKey);
 
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
                 issuer: _tokenOption.Issuer,
                 expires: accessTokenExpiration,
-                // vermiş olduğumuz dakikadan itibaren öncesi geçersiz olmasın
                 notBefore: DateTime.Now,
                 claims: GetClaimsByClient(client),
                 signingCredentials: signingCredentials);

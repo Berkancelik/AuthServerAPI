@@ -37,7 +37,6 @@ namespace AuthServerAPI
         {
 
             //DI Register 
-
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
@@ -45,6 +44,7 @@ namespace AuthServerAPI
             services.AddScoped(typeof(IServiceGeneric<,>), typeof(ServiceGeneric<,>));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 
 

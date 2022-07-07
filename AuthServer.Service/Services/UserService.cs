@@ -43,7 +43,7 @@ namespace AuthServer.Service.Services
             {
                 return Response<UserAppDto>.Fail("User Name not found", 404, true);
             }
-            return Response<UserAppDto>.Success(Object)
+            return Response<UserAppDto>.Success(ObjectMapper.Mapper.Map<UserAppDto>(user), 200);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace AuthServer.Service.Services
     public class AuthenticationService : IAuthenticationService
     {
         private readonly List<Client> _clients;
-        private readonly ITokenService _tokenService
+        private readonly ITokenService _tokenService;
         private readonly UserManager<UserApp> _userManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericRepository<UserRefreshToken> _userRefreshToken;

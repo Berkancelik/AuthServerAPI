@@ -30,7 +30,7 @@ namespace AuthServer.Service.Services
 
             await _genericRepository.AddAsync(newEntity);
 
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.CommmitAsync();
 
             var newDto = ObjectMapper.Mapper.Map<TDto>(newEntity);
 
@@ -67,7 +67,7 @@ namespace AuthServer.Service.Services
 
             _genericRepository.Remove(isExistEntity);
 
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.CommmitAsync();
 
             return Response<NoDataDto>.Success(200);
         }
@@ -81,7 +81,7 @@ namespace AuthServer.Service.Services
             }
             var updateEntity = ObjectMapper.Mapper.Map<TEntity>(entity);
             _genericRepository.Update(updateEntity);
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.CommmitAsync();
             return Response<NoDataDto>.Success(204);
         }
 

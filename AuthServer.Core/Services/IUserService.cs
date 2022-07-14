@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Core.Repositories.Services
 {
-    public interface IUserService
+      public interface IUserService
     {
         Task<Response<UserAppDto>> CreateUserAsync(CreateUserDto createUserDto);
+
         Task<Response<UserAppDto>> GetUserByNameAsync(string userName);
     }
 }

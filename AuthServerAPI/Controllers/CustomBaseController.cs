@@ -12,6 +12,5 @@ namespace AuthServerAPI.Controllers
                 StatusCode = response.StatusCode
             };
         }
-
     }
 }
